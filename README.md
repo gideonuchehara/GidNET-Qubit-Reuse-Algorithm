@@ -79,6 +79,6 @@ Contributions are welcome! Feel free to:
 
 ## 📩 Contact
 For questions or collaborations, reach out via:
-- **Email**: [gideonuchehara@example.com](mailto:gideonuchehara@gmail.com)
+- **Email**: [gideonuchehara@gmail.com](mailto:gideonuchehara@gmail.com)
 <!-- - **LinkedIn**: [Gideon Uchehara](https://www.linkedin.com/in/gideonuchehara/) -->
 <!-- - **Twitter**: [@Gid_Uchehara](https://twitter.com/Gid_Uchehara) -->

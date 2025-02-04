@@ -6,8 +6,8 @@ This repository contains the implementation of **GidNET**, a qubit reuse algorit
 
 ## 🔥 Key Features
 - **Qubit Reuse Optimization**: Efficiently reduces the number of physical qubits required for a given circuit.
-- **Circuit Cutting Integration**: Works alongside standard circuit cutting techniques for scalable quantum computation.
-- **High-Fidelity Execution**: Mitigates errors introduced by qubit reuse while maintaining algorithmic accuracy.
+<!-- - **Circuit Cutting Integration**: Works alongside standard circuit cutting techniques for scalable quantum computation. -->
+<!-- - **High-Fidelity Execution**: Mitigates errors introduced by qubit reuse while maintaining algorithmic accuracy. -->
 - **Benchmark Comparisons**: Implements comparisons with Qiskit’s circuit cutting techniques and other quantum algorithms.
 
 ## 🏗️ Installation

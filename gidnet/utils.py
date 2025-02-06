@@ -85,6 +85,16 @@ def merge_subsets(list_of_pairs):
     return merged_list
 
 
+##************ Qiskit Qubit Reuse ************************###
+from qiskit.converters import circuit_to_dag, dag_to_circuit
+from benchmarks.qiskit_qubit_reuse import qubit_reuse, qubit_reuse_greedy
+def apply_qiskit_qubit_reuse(cirucit):
+    qr = qubit_reuse.QubitReuseModified()
+    cirucit_dag= circuit_to_dag(cirucit)
+    qr_cirucit = dag_to_circuit(qr.run(cirucit_dag))
+    return qr_cirucit
+
+
 
 ########## QUANTUM CUIRCUIT BENCHMARKS #####################################
 

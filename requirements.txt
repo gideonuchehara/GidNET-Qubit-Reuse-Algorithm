@@ -10,7 +10,7 @@ QCompute==3.3.5
 qiskit==0.44.1
 qiskit[visualization]
 qiskit_ibmq_provider==0.20.2
-qiskit_qubit_reuse==0.0.1
+#qiskit_qubit_reuse==0.0.1
 qiskit_terra==0.25.1
 scikit_learn==1.2.1
 #scipy==1.7.3

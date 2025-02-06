@@ -3,8 +3,8 @@ import math, qiskit, random
 import networkx as nx
 import numpy as np
 
-from qcg.generators import gen_supremacy, gen_hwea, gen_BV, gen_sycamore, gen_adder
-from helper_functions.random_benchmark import RandomCircuit
+from benchmarks.qcg.generators import gen_supremacy, gen_hwea, gen_BV, gen_sycamore, gen_adder
+from benchmarks.qcg.helper_functions.random_benchmark import RandomCircuit
 
 
 def factor_int(n):

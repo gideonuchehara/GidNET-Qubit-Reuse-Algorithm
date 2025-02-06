@@ -1,3 +1,0 @@
-[submodule "benchmarks/QCompute"]
-	path = benchmarks/QCompute
-	url = https://github.com/baidu/QCompute.git

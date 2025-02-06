@@ -1,0 +1,10 @@
+LICENSE
+README.md
+setup.py
+GidNET.egg-info/PKG-INFO
+GidNET.egg-info/SOURCES.txt
+GidNET.egg-info/dependency_links.txt
+GidNET.egg-info/top_level.txt
+gidnet/__init__.py
+gidnet/qubitreuse.py
+gidnet/utils.py

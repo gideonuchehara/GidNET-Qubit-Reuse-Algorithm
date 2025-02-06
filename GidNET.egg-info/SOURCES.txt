@@ -7,4 +7,5 @@ GidNET.egg-info/dependency_links.txt
 GidNET.egg-info/top_level.txt
 gidnet/__init__.py
 gidnet/qubitreuse.py
+gidnet/real2qasm.py
 gidnet/utils.py

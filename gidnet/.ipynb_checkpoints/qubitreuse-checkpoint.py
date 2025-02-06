@@ -48,14 +48,15 @@ class GidNET:
             circuit (QuantumCircuit): The input quantum circuit to be analyzed and transformed.
         """
         self.circuit = circuit
-        self.biadjacency_matrix, self.candidate_matrix = self.compute_intial_biadjacency_and_candidate_matrix()
-        self.candidate_matrix_copy = np.copy(self.candidate_matrix)
-        self.circuit_dag = circuit_to_dag(self.circuit)  # Convert the circuit to a DAG representation
+        self.biadjacency_matrix, self.candidate_matrix = None, None
+        self.candidate_matrix_copy = None
+        self.circuit_dag = None  # Convert the circuit to a DAG representation
         self.qubit_reuse_sequences = None
         self.reuse_edges = None
         self.circuit_dag_with_reuse_edges = None
         self.dynamic_circuit = None
         self.dynamic_circuit_dag = None
+        self.dynamic_circuit_width = None
 
 
 
@@ -64,6 +65,7 @@ class GidNET:
         Converts a static quantum circuit into a dynamic quantum circuit.
 
         This method optimizes qubit reuse by modifying the DAG structure of the circuit. It:
+        - Computes the DAG and candidate matrix of the circuit.
         - Computes optimized qubit reuse sequences.
         - Adds edges to the DAG based on these sequences.
         - Removes barriers to enable topological sorting.
@@ -77,6 +79,14 @@ class GidNET:
         Returns:
             QuantumCircuit: The transformed dynamic quantum circuit.
         """
+
+        self.circuit_dag = circuit_to_dag(self.circuit)  # Convert the circuit to a DAG representation
+        
+        # compute the candidate matrix
+        self.biadjacency_matrix, self.candidate_matrix = self.compute_intial_biadjacency_and_candidate_matrix()
+
+        self.candidate_matrix_copy = np.copy(self.candidate_matrix) # make a copy of the candidate matrix
+        
         # Compute optimized qubit reuse sequences
         self.qubit_reuse_sequences = self.compute_optimized_reuse_sequences(iterations)
         
@@ -144,6 +154,7 @@ class GidNET:
                 self.dynamic_circuit_dag.apply_operation_back(reset_node.op, qargs=reset_node.qargs)
     
         self.dynamic_circuit = dag_to_circuit(self.dynamic_circuit_dag)
+        self.dynamic_circuit_width = self.dynamic_circuit.num_qubits
     
         if draw:
             display(self.dynamic_circuit.draw("mpl"))

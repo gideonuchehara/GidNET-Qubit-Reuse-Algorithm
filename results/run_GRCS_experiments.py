@@ -9,12 +9,12 @@ from benchmarks.biadu_qnet_qubit_reuse.baidu_qnet_qr import (
     compute_qnet_qubit_reuse_list_timing
 )
 from gidnet.qubitreuse import GidNET
-from gidnet.utils import apply_qiskit_qubit_reuse, create_qiskit_and_qnet_GRCS_circuits
+from gidnet.utils import safe_eval, apply_qiskit_qubit_reuse, create_qiskit_and_qnet_GRCS_circuits
 from benchmarks.qcg.helper_functions.benchmarks import generate_circ
 from qiskit import QuantumCircuit
 
 import warnings
-warnings.filterwarnings("ignore", category=UserWarning, module="antlr4")
+warnings.filterwarnings("ignore", category=UserWarning, module="ANTLR")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -58,37 +58,47 @@ def run_experiment(depth, circuit_sizes):
         else:
             circuit, qnet_circuit = create_qiskit_and_qnet_GRCS_circuits(circuit_size, depth, directory_path)
             
+            
         # GidNET Experiment
         gidnet = GidNET(circuit)
         runtimes = []
-        min_width = float('inf')
+        min_width = int(1e10)
         for _ in range(iterations):
             start_time = time.time()
             gidnet.compile_to_dynamic_circuit(iterations)
             runtimes.append(time.time() - start_time)
             min_width = min(min_width, gidnet.dynamic_circuit_width)
-        gidnet_results.append([circuit_size, np.mean(runtimes), np.std(runtimes), min_width])
+        if depth != 11:
+            gidnet_results.append([safe_eval(circuit_size), np.mean(runtimes), np.std(runtimes), min_width])
+        else:
+            gidnet_results.append([circuit_size, np.mean(runtimes), np.std(runtimes), min_width])
         
         # QNET Experiment
         qnet_circuit = from_qiskit_to_qnet(circuit)
         runtimes = []
-        min_width = float('inf')
+        min_width = int(1e10)
         for _ in range(iterations):
             start_time = time.time()
             qnet_result = compute_qnet_qubit_reuse_list(qnet_circuit, method="random", shots=iterations)
             runtimes.append(time.time() - start_time)
             min_width = min(min_width, len(qnet_result))
-        qnet_results.append([circuit_size, np.mean(runtimes), np.std(runtimes), min_width])
+        if depth != 11:
+            qnet_results.append([safe_eval(circuit_size), np.mean(runtimes), np.std(runtimes), min_width])
+        else:
+            qnet_results.append([circuit_size, np.mean(runtimes), np.std(runtimes), min_width])
         
         # Qiskit Experiment
         runtimes = []
-        min_width = float('inf')
+        min_width = int(1e10)
         for _ in range(iterations):
             start_time = time.time()
             compiled_qiskit_circuit = apply_qiskit_qubit_reuse(circuit)
             runtimes.append(time.time() - start_time)
             min_width = min(min_width, compiled_qiskit_circuit.num_qubits)
-        qiskit_results.append([circuit_size, np.mean(runtimes), np.std(runtimes), min_width])
+        if depth != 11:
+            qiskit_results.append([safe_eval(circuit_size), np.mean(runtimes), np.std(runtimes), min_width])
+        else:
+            qiskit_results.append([circuit_size, np.mean(runtimes), np.std(runtimes), min_width])
     
     df_gidnet = pd.DataFrame(gidnet_results, columns=["Circuit Size", "GidNET Mean Runtime", "GidNET Stdev Runtime", "GidNET Min Width"])
     df_qnet = pd.DataFrame(qnet_results, columns=["Circuit Size", "QNET Mean Runtime", "QNET Stdev Runtime", "QNET Min Width"])
@@ -97,9 +107,9 @@ def run_experiment(depth, circuit_sizes):
     df = pd.merge(df_gidnet, df_qnet, on="Circuit Size")
     df = pd.merge(df, df_qiskit, on="Circuit Size")
     
-    output_path = Path("GRSC_result")
+    output_path = Path("GRCS_result")
     output_path.mkdir(parents=True, exist_ok=True)
-    df.to_csv(output_path / f"width_and_runtime_GRSC_cct_depth_{depth}.csv", index=False)
+    df.to_csv(output_path / f"width_and_runtime_GRCS_cct_depth_{depth}.csv", index=False)
     logging.info(f"Experiment for depth {depth} completed and data saved.")
 
 if __name__ == "__main__":

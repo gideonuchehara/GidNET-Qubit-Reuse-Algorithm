@@ -183,6 +183,7 @@ class GidNET:
         U = [[i] for i in range(n)]  # Initialize trivial reuse sets (one per qubit)
 
         if np.all(self.candidate_matrix == 0):
+            self.dynamic_circuit_width = self.circuit.num_qubits
             return None  # Irreducible circuit, no reuse possible
 
         for _ in range(int(iterations)):  # Perform optimization for the given iterations

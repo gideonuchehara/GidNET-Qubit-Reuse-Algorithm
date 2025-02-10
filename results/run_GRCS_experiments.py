@@ -35,7 +35,7 @@ experiment_depths = {11: [16, 20, 25, 30, 36, 42, 49, 56, 64, 72, 81, 90, 100, 1
 
 iterations = 10  # Number of iterations for qubit reuse algorithms
 
-def run_experiment(depth, circuit_sizes):
+def run_grcs_experiment(depth, circuit_sizes):
     gidnet_results = []
     qnet_results = []
     qiskit_results = []
@@ -112,4 +112,4 @@ def run_experiment(depth, circuit_sizes):
 
 if __name__ == "__main__":
     for depth, sizes in experiment_depths.items():
-        run_experiment(depth, sizes)
+        run_grcs_experiment(depth, sizes)

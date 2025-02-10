@@ -26,18 +26,16 @@ repo_path = Path.cwd()
 directory_path = repo_path / "data" / "GRSC"
 
 # Define parameters
-# experiment_depths = {11: [16, 20, 25, 30, 36, 42, 49, 56, 64, 72, 81, 90, 100, 110, 121, 132, 144],
-#                      12: ["4x4", "4x5", "5x5", "5x6", "6x6", "6x7", "7x7", "7x8", "8x8", "8x9",
-#                           "9x9", "9x10", "10x10", "10x11", "11x11", "11x12", "12x12"],
-#                      15: ["4x4", "4x5", "5x5", "5x6", "6x6", "6x7", "7x7", "7x8", "8x8", "8x9",
-#                           "9x9", "9x10", "10x10", "10x11", "11x11", "11x12", "12x12"]}
-experiment_depths = {11: [16, 20],
-                     12: ["4x4", "4x5"],
-                     15: ["4x4", "4x5"]}
+experiment_depths = {11: [16, 20, 25, 30, 36, 42, 49, 56, 64, 72, 81, 90, 100, 110, 121, 132, 144],
+                     12: ["4x4", "4x5", "5x5", "5x6", "6x6", "6x7", "7x7", "7x8", "8x8", "8x9",
+                          "9x9", "9x10", "10x10", "10x11", "11x11", "11x12", "12x12"],
+                     15: ["4x4", "4x5", "5x5", "5x6", "6x6", "6x7", "7x7", "7x8", "8x8", "8x9",
+                          "9x9", "9x10", "10x10", "10x11", "11x11", "11x12", "12x12"]}
+
 
 iterations = 10  # Number of iterations for qubit reuse algorithms
 
-def run_experiment(depth, circuit_sizes):
+def run_grcs_experiment(depth, circuit_sizes):
     gidnet_results = []
     qnet_results = []
     qiskit_results = []
@@ -114,4 +112,4 @@ def run_experiment(depth, circuit_sizes):
 
 if __name__ == "__main__":
     for depth, sizes in experiment_depths.items():
-        run_experiment(depth, sizes)
+        run_grcs_experiment(depth, sizes)

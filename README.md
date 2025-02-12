@@ -1,84 +1,100 @@
-# GidNET: Qubit Reuse Algorithm
+# GidNET: Graph-Based Identification of Qubit Network for Qubit Reuse
 
-[![arXiv](https://img.shields.io/badge/arXiv-2410.08817-B31B1B.svg)](https://arxiv.org/abs/2410.08817)
+## Overview
+GidNET (Graph-Based Identification of Qubit Network) is a **qubit reuse algorithm** designed to optimize quantum circuits by minimizing the number of qubits required while preserving computational integrity. The algorithm applies a **graph-theoretic approach** to dynamically reassign logical qubits, leveraging structural properties of quantum circuits to enable efficient execution on quantum hardware with limited qubit resources.
 
-This repository contains the implementation of **GidNET**, a qubit reuse algorithm introduced in the paper [*Techniques for Optimized Quantum Circuit Cutting, Scalable Qubit Reuse, and High-Fidelity Generalized Measurements*](https://arxiv.org/abs/2410.08817). GidNET enables efficient quantum circuit decomposition by reusing qubits in a structured manner, optimizing hardware resource allocation and reducing quantum circuit width.
+This repository provides an **implementation of GidNET**, along with benchmark experiments comparing it to other qubit reuse techniques such as **Qiskit qubit reuse** and **QNET random qubit reuse**. The repository also includes scripts for reproducing experimental results, analyzing runtime trade-offs, and evaluating optimal iteration counts.
 
-## 🔥 Key Features
-- **Qubit Reuse Optimization**: Efficiently reduces the number of physical qubits required for a given circuit.
-<!-- - **Circuit Cutting Integration**: Works alongside standard circuit cutting techniques for scalable quantum computation. -->
-<!-- - **High-Fidelity Execution**: Mitigates errors introduced by qubit reuse while maintaining algorithmic accuracy. -->
-- **Benchmark Comparisons**: Implements comparisons with Qiskit’s circuit cutting techniques and other quantum algorithms.
+## Key Features
+- **Graph-Theoretic Qubit Reuse**: GidNET identifies reuse opportunities using graph-based techniques.
+- **Comparison with Existing Approaches**: Benchmarks against **Qiskit** and **QNET** reuse methods.
+- **Flexible Experimentation Framework**: Supports various quantum circuit types, including **QAOA** and **GRCS (Google Random Circuit Sampling)**.
+- **Iteration Analysis**: Evaluates the optimal number of iterations to maximize qubit reuse efficiency.
+- **Robust Data Processing & Visualization**: Generates plots and tables for analysis.
 
-## 🏗️ Installation
-To run the implementation, first clone this repository:
-```bash
-git clone https://github.com/gideonuchehara/GidNET-Qubit-Reuse-Algorithm.git
-cd GidNET-Qubit-Reuse-Algorithm
-```
-Then install dependencies:
+## Reference Papers
+The algorithm and its theoretical foundation are described in the following papers:
+- **Published IEEE Version**: [IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/10821360?casa_token=F2Zpmr1CPiMAAAAA:mu8Zo15ZlD9sAoOst3680nRpIaIB5Tu_HXSiKofl6KUnf69q6yf__uJrVKdnaSuw0sP3q1MxdQ)
+- **Preprint on ArXiv**: [arXiv 2410.08817](https://arxiv.org/abs/2410.08817)
+
+## Repository Structure
+This repository is organized as follows:
+
+### **1. Core Algorithm (gidnet/)**
+- **`gidnet/qubitreuse.py`** - Implementation of GidNET’s qubit reuse algorithm.
+- **`gidnet/utils.py`** - Helper functions, including circuit transformations and analysis tools.
+- **`gidnet/__init__.py`** - Package initialization.
+
+### **2. Experimental Results (results/)**
+Contains data, scripts, and plots generated from benchmark experiments:
+
+- **GRCS_result/** - Results from Google Random Circuit Sampling experiments.
+- **QAOA_result/** - Results from Quantum Approximate Optimization Algorithm (QAOA) circuits.
+- **Optimal_iterations/** - Analysis of iteration count needed to achieve optimal qubit reuse.
+- **data/** - Raw datasets used in experiments.
+- **`run_GRCS_experiments.py`** - Script for running GRCS circuit experiments.
+- **`run_QAOA_experiments.py`** - Script for running QAOA circuit experiments.
+- **`plot_GRCS_result.py`** - Script for visualizing GRCS results.
+- **`plot_QAOA_result.py`** - Script for visualizing QAOA results.
+- **`gidnet_iteration_analysis.py`** - Computes the optimal number of iterations for GidNET.
+
+### **3. Documentation (docs/)**
+Contains explanatory materials and theoretical insights:
+- **`docs/GidNET_Iteration_Analysis.md`** - Explanation of how optimal iterations for GidNET are determined.
+- **`docs/Qubit_Reuse_Methods.md`** - Comparison of GidNET with other qubit reuse strategies.
+
+## Installation
+### **Requirements**
+This project requires Python 3.8+ and the following dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-Ensure you have a working installation of [Qiskit](https://qiskit.org/) and Python (>= 3.8).
+Ensure that you have **Qiskit** installed to run quantum circuit simulations.
 
-## 🚀 Usage
-To test the GidNET qubit reuse algorithm on example circuits, run:
+### **Usage**
+#### **Running Qubit Reuse Experiments**
+1. **GRCS Circuit Experiments**:
+   ```bash
+   python results/run_GRCS_experiments.py
+   ```
+2. **QAOA Circuit Experiments**:
+   ```bash
+   python results/run_QAOA_experiments.py
+   ```
+3. **Optimal Iterations Analysis**:
+   ```bash
+   python results/gidnet_iteration_analysis.py
+   ```
+
+#### **Plotting Results**
+To visualize the experiment outputs, use:
 ```bash
-python run_experiments.py
+python results/plot_GRCS_result.py
+python results/plot_QAOA_result.py
 ```
-To visualize results, use:
+
+## Optimal Number of Iterations Analysis
+To determine the best number of iterations for GidNET, we analyze the **probability of finding the least-width circuit** under different iteration settings:
+- **n** (number of qubits in the original circuit)
+- **n/2, n/4**
+- **log(n), log(n/2), log(n/4)**
+
+We compute a **score** based on:
+\[ \text{Score} = \text{Probability} \times \left( \frac{\text{Min Width Found}}{\text{Observed Width}} \right) \]
+This helps balance the trade-off between computational cost and effectiveness of qubit reuse.
+
+To run the analysis and generate plots:
 ```bash
-python plot_results.py
-```
-For in-depth implementation details, refer to `gidnet_qubit_reuse.py`.
-
-## 📜 Paper Abstract
-In this work, we propose **GidNET**, a structured qubit reuse algorithm that allows logical qubits to be dynamically mapped onto a minimal set of physical qubits while maintaining computational integrity. By strategically reusing qubits in complex quantum circuits, GidNET optimizes resource allocation, enabling deeper and more efficient quantum computations. We benchmark our approach against existing methods and demonstrate its effectiveness in reducing quantum circuit width while preserving high-fidelity results.
-
-For full details, see our paper: [arXiv:2410.08817](https://arxiv.org/abs/2410.08817).
-
-## 🛠️ Code Structure
-```
-📂 GidNET-Qubit-Reuse-Algorithm
-│── 📄 gidnet_qubit_reuse.py   # Implementation of GidNET algorithm
-│── 📄 run_experiments.py      # Runs benchmarks and example circuits
-│── 📄 plot_results.py         # Generates plots for result visualization
-│── 📄 README.md               # This file
-│── 📄 requirements.txt        # Dependencies
-│── 📂 data                    # Sample quantum circuit data
-│── 📂 results                 # Output and benchmarking results
+python results/gidnet_iteration_analysis.py
 ```
 
-## 🔬 Benchmarking & Comparisons
-The GidNET algorithm is tested against:
-- **Qiskit Circuit Cutting** 
-- **Standard Qubit Allocation Heuristics**
-- **Other Quantum Hardware Optimization Techniques**
+## Contributing
+Contributions to GidNET are welcome! Feel free to open **issues** or submit **pull requests** for bug fixes, enhancements, or new features.
 
-Results can be reproduced using:
-```bash
-python run_experiments.py --benchmark
-```
+## License
+This project is licensed under the **MIT License**.
 
-## 📢 Citation
-If you find this work useful, please consider citing:
-```bibtex
-@article{uchehara2024gidnet,
-  author = {Uchehara, Gideon},
-  title = {Techniques for Optimized Quantum Circuit Cutting, Scalable Qubit Reuse, and High-Fidelity Generalized Measurements},
-  journal = {arXiv preprint arXiv:2410.08817},
-  year = {2024}
-}
-```
+---
+For more details, check the full documentation in the `docs/` directory or refer to the referenced papers.
 
-## 🤝 Contributing
-Contributions are welcome! Feel free to:
-- Open an **issue** for bug reports and feature requests.
-- Submit a **pull request** with improvements or additional benchmarks.
 
-## 📩 Contact
-For questions or collaborations, reach out via:
-- **Email**: [gideonuchehara@gmail.com](mailto:gideonuchehara@gmail.com)
-<!-- - **LinkedIn**: [Gideon Uchehara](https://www.linkedin.com/in/gideonuchehara/) -->
-<!-- - **Twitter**: [@Gid_Uchehara](https://twitter.com/Gid_Uchehara) -->

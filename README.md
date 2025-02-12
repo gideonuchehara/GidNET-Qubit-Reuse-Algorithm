@@ -86,6 +86,38 @@ GidNET relies on Qiskit, NumPy, and Matplotlib for quantum circuit generation, a
 
 ---
 
+## 📌 Usage Example
+
+To use GidNET for optimizing a quantum circuit, follow this example:
+
+```python
+from gidnet.qubitreuse import GidNET
+from qiskit import QuantumCircuit
+
+# Define a sample quantum circuit
+circ = QuantumCircuit(5)
+
+circ.cx(1, 2)
+circ.cx(0, 3)
+
+circ.cx(1, 4)
+circ.cx(2, 4)
+circ.cx(3, 4)
+
+circ.measure_all()
+
+# Draw the original circuit
+circ.draw('mpl')
+
+# Apply GidNET to compile it into a dynamic circuit
+gidnet = GidNET(circ)
+dynamic_circ = gidnet.compile_to_dynamic_circuit(iterations=20, draw=True)
+
+# Check the width of the compiled dynamic circuit
+print("Dynamic Circuit Width:", gidnet.dynamic_circuit_width)
+```
+
+
 ## 🚀 Running Experiments
 
 ### 1️⃣ **Running GRCS Circuit Experiments**

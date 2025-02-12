@@ -83,6 +83,45 @@ def merge_subsets(list_of_pairs):
                 break
 
     return merged_list
+    
+    
+def find_minimum_width_sets(A):
+    """
+    Finds and returns the elements in the main list that have the smallest length.
+
+    Parameters:
+    A (list of list of lists): The main list containing sublists of lists.
+
+    Returns:
+    list: A list containing the elements from A that have the smallest length.
+    """
+    
+    # Step 1: Determine the length of each element in A
+    lengths = [len(a) for a in A]
+
+    # Step 2: Find the smallest length among the elements
+    min_length = min(lengths)
+
+    # Step 3: Collect all elements that match this smallest length
+    smallest_length_elements = [a for a in A if len(a) == min_length]
+
+    return smallest_length_elements
+    
+# Scoring function for Number of iterations
+def iteration_score(elements):
+    """
+    Compute scores for different iteration settings.
+
+    Parameters:
+    - elements (list of tuples): Each tuple contains (min width found, probability of finding it)
+
+    Returns:
+    - scores (list): Computed scores for each setting.
+    """
+    widths = [ele[0] for ele in elements]
+    min_width = min(widths)
+    scores = [prob * (min_width / width) for width, prob in elements]
+    return scores
 
 
 ##************ Qiskit Qubit Reuse ************************###

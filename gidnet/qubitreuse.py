@@ -56,7 +56,8 @@ class GidNET:
         self.circuit_dag_with_reuse_edges = None
         self.dynamic_circuit = None
         self.dynamic_circuit_dag = None
-        self.dynamic_circuit_width = None
+        self.dynamic_circuit_width = None  # set to the width of the original circuit if no reuse is possible
+        self.list_of_computed_reuse_sequences = []  # this keeps track of all the reuse sequences computed so far. It is used to determine the optimal iterations to use
 
 
 
@@ -204,6 +205,8 @@ class GidNET:
             # Merge and finalize reuse sequences to remove redundancy
             U_prime = merge_subsets(U_prime)
             U_prime = self.finalize_reuse(U_prime)
+            
+            self.list_of_computed_reuse_sequences.append(U_prime) # this keeps track of all the reuse sequences computed so far. It is used to determine the optimal iterations to use
 
             # Update U only if a better optimization is found
             if len(U_prime) < len(U):

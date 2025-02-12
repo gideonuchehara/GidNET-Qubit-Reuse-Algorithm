@@ -20,6 +20,38 @@ The algorithm and its theoretical foundation are described in the following pape
 ## Repository Structure
 This repository is organized as follows:
 
+---
+
+## 📂 Repository Structure
+
+```
+GidNET-Qubit-Reuse-Algorithm/
+│── gidnet/                     # Implementation of GidNET
+│   ├── __init__.py             # Package initialization
+│   ├── qubitreuse.py           # GidNET algorithm
+│   ├── utils.py                # Utility functions
+│
+│── results/                    # Experimental results and plots
+│   ├── GRCS_result/            # GidNET results for GRCS circuits
+│   ├── QAOA_result/            # GidNET results for QAOA circuits
+│   ├── Optimal_iterations/      # Iteration analysis for optimal qubit reuse
+│   ├── gidnet_iteration_analysis.py # Script for analyzing optimal iterations
+│   ├── plot_GRCS_result.py     # Plot script for GRCS results
+│   ├── plot_QAOA_result.py     # Plot script for QAOA results
+│   ├── run_GRCS_experiments.py # Script to run GRCS circuit experiments
+│   ├── run_QAOA_experiments.py # Script to run QAOA circuit experiments
+│
+│── docs/                       # Documentation
+│   ├── iteration_analysis.md   # Detailed explanation of iteration analysis
+│
+│── notebook.ipynb              # Jupyter notebook for explaining how GidNET is used
+│── README.md                   # This readme file
+```
+
+---
+
+<!--
+
 ### **1. Core Algorithm (gidnet/)**
 - **`gidnet/qubitreuse.py`** - Implementation of GidNET’s qubit reuse algorithm.
 - **`gidnet/utils.py`** - Helper functions, including circuit transformations and analysis tools.
@@ -41,51 +73,93 @@ Contains data, scripts, and plots generated from benchmark experiments:
 ### **3. Documentation (docs/)**
 Contains explanatory materials and theoretical insights:
 - **`docs/optimal_iterations_analysis.md`** - Explanation of how optimal iterations for GidNET are determined.
+ -->
+ 
+ ---
 
-## Installation
-### **Requirements**
-This project requires Python 3.8+ and the following dependencies:
+## 🔧 Installation
+
+To use GidNET, first clone the repository and install dependencies:
+
 ```bash
+git clone https://github.com/gideonuchehara/GidNET-Qubit-Reuse-Algorithm.git
+cd GidNET-Qubit-Reuse-Algorithm
 pip install -r requirements.txt
 ```
-Ensure that you have **Qiskit** installed to run quantum circuit simulations.
 
-### **Usage**
-#### **Running Qubit Reuse Experiments**
-1. **GRCS Circuit Experiments**:
-   ```bash
-   python results/run_GRCS_experiments.py
-   ```
-2. **QAOA Circuit Experiments**:
-   ```bash
-   python results/run_QAOA_experiments.py
-   ```
-3. **Optimal Iterations Analysis**:
-   ```bash
-   python results/gidnet_iteration_analysis.py
-   ```
+GidNET relies on Qiskit, NumPy, and Matplotlib for quantum circuit generation, analysis, and visualization.
 
-#### **Plotting Results**
-To visualize the experiment outputs, use:
+---
+
+## 🚀 Running Experiments
+
+### 1️⃣ **Running GRCS Circuit Experiments**
+
+To run the experiments on Google Random Circuit Sampling (GRCS) circuits:
+
 ```bash
-python results/plot_GRCS_result.py
-python results/plot_QAOA_result.py
+python results/run_GRCS_experiments.py
 ```
 
-## Optimal Number of Iterations Analysis
-To determine the best number of iterations for GidNET, we analyze the **probability of finding the least-width circuit** under different iteration settings:
-- **n** (number of qubits in the original circuit)
-- **n/2, n/4**
-- **log(n), log(n/2), log(n/4)**
+Results will be saved in `results/GRCS_result/`.
 
-We compute a **score** based on:
-\[ \text{Score} = \text{Probability} \times \left( \frac{\text{Min Width Found}}{\text{Observed Width}} \right) \]
-This helps balance the trade-off between computational cost and effectiveness of qubit reuse.
+### 2️⃣ **Running QAOA Circuit Experiments**
 
-To run the analysis and generate plots:
+To run the experiments on QAOA circuits:
+
+```bash
+python results/run_QAOA_experiments.py
+```
+
+Results will be saved in `results/QAOA_result/`.
+
+---
+
+## 📊 Analyzing and Visualizing Results
+
+### **Plotting GRCS Circuit Results**
+```bash
+python results/plot_GRCS_result.py
+```
+This generates plots comparing GidNET, QNET, and Qiskit in terms of circuit width reduction and runtime.
+
+### **Plotting QAOA Circuit Results**
+```bash
+python results/plot_QAOA_result.py
+```
+This generates plots for the QAOA experiment results.
+
+### **Iteration Analysis**
+To determine the optimal number of iterations for GidNET to find the smallest qubit width:
 ```bash
 python results/gidnet_iteration_analysis.py
 ```
+Results will be stored in `results/Optimal_iterations/`.
+
+---
+
+## 📖 Understanding the Iteration Analysis
+
+Since GidNET is a probabilistic algorithm, multiple iterations are performed to ensure the best qubit reuse outcome. However, running too many iterations increases runtime without significant improvement in width reduction. We analyze optimal iterations using:
+
+| Iteration Setting  | Description |
+|--------------------|-------------|
+| **n**             | Total number of qubits in the circuit |
+| **n/2**           | Half the total qubits |
+| **n/4**           | A quarter of the total qubits |
+| **log(n)**        | Logarithmic scaling of qubits |
+| **log(n/2)**      | Logarithmic scaling of half the qubits |
+| **log(n/4)**      | Logarithmic scaling of a quarter of the qubits |
+
+We score each iteration count based on its effectiveness in finding the minimal circuit width:
+
+```
+score = probability × (min_width / obtained_width)
+```
+
+A higher score indicates a better iteration setting.
+
+---
 
 ## Contributing
 Contributions to GidNET are welcome! Feel free to open **issues** or submit **pull requests** for bug fixes, enhancements, or new features.
@@ -93,7 +167,17 @@ Contributions to GidNET are welcome! Feel free to open **issues** or submit **pu
 ## License
 This project is licensed under the **MIT License**.
 
+## 📜 References
+
+📄 **Official Paper:** [IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/10821360?casa_token=F2Zpmr1CPiMAAAAA:mu8Zo15ZlD9sAoOst3680nRpIaIB5Tu_HXSiKofl6KUnf69q6yf__uJrVKdnaSuw0sP3q1MxdQ)  
+📄 **Preprint Version:** [arXiv](https://arxiv.org/abs/2410.08817)
+
 ---
-For more details, check the full documentation in the `docs/` directory or refer to the referenced papers.
+
+## 👨‍💻 Author
+
+**Gideon Uchehara**  
+Email: [gideonuchehara@gmail.com](mailto:gideonuchehara@gmail.com)  
+GitHub: [@gideonuchehara](https://github.com/gideonuchehara)
 
 

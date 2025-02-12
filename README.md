@@ -12,11 +12,6 @@ This repository provides an **implementation of GidNET**, along with benchmark e
 - **Iteration Analysis**: Evaluates the optimal number of iterations to maximize qubit reuse efficiency.
 - **Robust Data Processing & Visualization**: Generates plots and tables for analysis.
 
-## Reference Papers
-The algorithm and its theoretical foundation are described in the following papers:
-- **Published IEEE Version**: [IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/10821360?casa_token=F2Zpmr1CPiMAAAAA:mu8Zo15ZlD9sAoOst3680nRpIaIB5Tu_HXSiKofl6KUnf69q6yf__uJrVKdnaSuw0sP3q1MxdQ)
-- **Preprint on ArXiv**: [arXiv 2410.08817](https://arxiv.org/abs/2410.08817)
-
 ## Repository Structure
 This repository is organized as follows:
 

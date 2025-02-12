@@ -6,7 +6,7 @@ GidNET (Graph-Based Identification of Qubit Network) is a **qubit reuse algorith
 This repository provides an **implementation of GidNET**, along with benchmark experiments comparing it to other qubit reuse techniques such as **Qiskit qubit reuse** and **QNET random qubit reuse**. The repository also includes scripts for reproducing experimental results, analyzing runtime trade-offs, and evaluating optimal iteration counts.
 
 ## Key Features
-- **Graph-Theoretic Qubit Reuse**: GidNET identifies reuse opportunities using graph-based techniques.
+- **Graph-Based Qubit Reuse**: GidNET identifies reuse opportunities using graph-based techniques.
 - **Comparison with Existing Approaches**: Benchmarks against **Qiskit** and **QNET** reuse methods.
 - **Flexible Experimentation Framework**: Supports various quantum circuit types, including **QAOA** and **GRCS (Google Random Circuit Sampling)**.
 - **Iteration Analysis**: Evaluates the optimal number of iterations to maximize qubit reuse efficiency.
@@ -40,8 +40,7 @@ Contains data, scripts, and plots generated from benchmark experiments:
 
 ### **3. Documentation (docs/)**
 Contains explanatory materials and theoretical insights:
-- **`docs/GidNET_Iteration_Analysis.md`** - Explanation of how optimal iterations for GidNET are determined.
-- **`docs/Qubit_Reuse_Methods.md`** - Comparison of GidNET with other qubit reuse strategies.
+- **`docs/optimal_iterations_analysis.md`** - Explanation of how optimal iterations for GidNET are determined.
 
 ## Installation
 ### **Requirements**

@@ -84,6 +84,25 @@ pip install -r requirements.txt
 
 GidNET relies on Qiskit, NumPy, and Matplotlib for quantum circuit generation, analysis, and visualization.
 
+## Installing Baidu's QCompute for QNET
+
+To install Baidu's **QCompute** package for QNET, you have two options:
+
+### **Option 1: Install from Baidu's GitHub Repository**
+```
+git clone https://github.com/baidu/QCompute.git
+cd QCompute
+pip install -e .
+```
+
+### **Option 2: Ensure Consistency with Our Version of QCompute**
+To ensure compatibility with our version of QCompute, navigate to `benchmarks.QCompute` and install the package from there:
+```
+cd benchmarks.QCompute
+pip install -e .
+```
+
+
 ---
 
 ## 📌 Usage Example

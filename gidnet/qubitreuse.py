@@ -48,9 +48,13 @@ class GidNET:
             circuit (QuantumCircuit): The input quantum circuit to be analyzed and transformed.
         """
         self.circuit = circuit
-        self.biadjacency_matrix, self.candidate_matrix = None, None
-        self.candidate_matrix_copy = None
-        self.circuit_dag = None  # Convert the circuit to a DAG representation
+        self.circuit_dag = circuit_to_dag(self.circuit)  # Convert the circuit to a DAG representation
+        
+        # compute the candidate matrix
+        self.biadjacency_matrix, self.candidate_matrix = self.compute_intial_biadjacency_and_candidate_matrix()
+        # self.biadjacency_matrix, self.candidate_matrix = None, None
+        # self.candidate_matrix_copy = None
+        self.candidate_matrix_copy = np.copy(self.candidate_matrix) # make a copy of the candidate matrix
         self.qubit_reuse_sequences = None
         self.reuse_edges = None
         self.circuit_dag_with_reuse_edges = None
@@ -81,12 +85,12 @@ class GidNET:
             QuantumCircuit: The transformed dynamic quantum circuit.
         """
 
-        self.circuit_dag = circuit_to_dag(self.circuit)  # Convert the circuit to a DAG representation
+        # self.circuit_dag = circuit_to_dag(self.circuit)  # Convert the circuit to a DAG representation
         
         # compute the candidate matrix
-        self.biadjacency_matrix, self.candidate_matrix = self.compute_intial_biadjacency_and_candidate_matrix()
+        # self.biadjacency_matrix, self.candidate_matrix = self.compute_intial_biadjacency_and_candidate_matrix()
 
-        self.candidate_matrix_copy = np.copy(self.candidate_matrix) # make a copy of the candidate matrix
+        # self.candidate_matrix_copy = np.copy(self.candidate_matrix) # make a copy of the candidate matrix
         
         # Compute optimized qubit reuse sequences
         self.qubit_reuse_sequences = self.compute_optimized_reuse_sequences(iterations)
@@ -487,3 +491,4 @@ class GidNET:
 
 if __name__ == "__main__":
     logging.info("GidNET Qubit Reuse Algorithm Initialized")
+
